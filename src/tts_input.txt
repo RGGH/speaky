@@ -1,0 +1,19 @@
+This Rust code demonstrates how to make an asynchronous API call to OpenAI's text-to-speech service, sending a request to convert text into speech and saving the resulting audio file.
+
+Here’s how it works:
+
+1. **Imports**: The code uses the `reqwest` crate for making HTTP requests, `serde_json` for building the JSON payload, and standard libraries like `std::fs` and `std::io` for file handling.
+
+2. **Environment Variable**: The API key for OpenAI is retrieved from an environment variable called `OPENAI_API_KEY`. If this environment variable is not set, the program will panic.
+
+3. **JSON Payload**: A JSON object is created to specify the model, input text, and voice type. In this case, the model used is `"tts-1"`, and the text `"Hello mofos! This isn't me speaking!"` will be converted into speech using the voice `"fable"`.
+
+4. **HTTP Client and Headers**: The code creates a new HTTP client using `reqwest::Client::new()`. It also sets up the request headers, including the authorization header with the API key and the content type as `application/json`.
+
+5. **Sending the Request**: A POST request is sent to the OpenAI API endpoint (`https://api.openai.com/v1/audio/speech`) with the constructed headers and JSON payload. The response is awaited asynchronously.
+
+6. **Handling the Response**: If the request is successful (status code 200), the audio content returned in the response is saved to a file named `speech.mp3`. If the request fails, the status code is printed to indicate the error.
+
+7. **File Writing**: The audio content (in bytes) is written to the file using `std::io::copy`.
+
+This code will result in an audio file (`speech.mp3`) being created from the text you provide, enabling you to convert text into speech using OpenAI's API.
